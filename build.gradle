@@ -1,0 +1,105 @@
+apply plugin: "cpp"
+apply plugin: "java"
+
+sourceCompatibility = "1.6"
+targetCompatibility = "1.6"
+
+task nativelib(  ){
+	
+}
+
+
+nativelib.dependsOn {
+    tasks.findAll { task -> task.name.endsWith('SharedLibrary') }
+}
+
+jar.shouldRunAfter nativelib
+
+task cleanGenSrc(type: Delete) {
+  delete fileTree(dir: 'gensrc/cpp'),fileTree(dir: 'gensrc/java')
+}
+
+// "C:\program Files (x86)\swigwin-3.0.12\swig.exe" -o target\fgdb4j.cxx -oh target\fgdb4j.h -Iinclude -c++ -java -outdir target\src src\swig\fgdb4j.i
+task generateSrc(type:Exec) {
+  mkdir "gensrc/java/ch/ehi/fgdb4j/jni"
+  executable "C:/program Files (x86)/swigwin-3.0.12/swig.exe"
+  args "-o", "gensrc/cpp/fgdb4j.cxx"
+  args "-oh", "gensrc/cpp/fgdb4j.h"
+  args "-Iesriapi/include"
+  args "-c++"
+  //args "-debug-tmsearch"
+  args "-java"
+  args "-outdir", "gensrc/java/ch/ehi/fgdb4j/jni"
+  args "-package", "ch.ehi.fgdb4j.jni"
+  args "src/swig/fgdb4j.i"
+}
+
+jar {
+	from ("build/libs/fgdb4j/shared/x64/fgdb4j.dll") {
+		into ("ch/ehi/fgdb4j/native/Windows/x86_64")
+		rename 'fgdb4jnative.dll','fgdb4j.dll'
+	}
+	from ("esriapi/bin64/FileGDBAPI.dll"){
+		into ("ch/ehi/fgdb4j/native/Windows/x86_64")
+	}
+	from ("build/libs/fgdb4j/shared/x86/fgdb4j.dll") {
+		into ("ch/ehi/fgdb4j/native/Windows/x86")
+		rename 'fgdb4jnative.dll','fgdb4j.dll'
+	}
+	from ("esriapi/bin/FileGDBAPI.dll"){
+		into ("ch/ehi/fgdb4j/native/Windows/x86")
+	}
+	
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['gensrc/java','src/java']
+        }
+        resources {
+            srcDirs = ['src/java','gensrc/native']
+        }
+    }
+}
+
+model {
+    buildTypes {
+          release
+    }
+    platforms {
+        x86 {
+            architecture "x86"
+        }
+        x64 {
+            architecture "x86_64"
+        } 
+    }
+    components {
+        fgdb4j(NativeLibrarySpec){
+            targetPlatform "x64"
+            targetPlatform "x86"
+	    sources {
+		    cpp {
+			source {
+			    srcDir "gensrc/cpp"
+			    include "**/*.cxx"
+			}
+		    }
+	    }
+	    binaries.all {
+		    if (toolChain in VisualCpp) {
+			cppCompiler.args "-I"+new File("jdk/include").getAbsolutePath()
+			cppCompiler.args "-I"+new File("jdk/include/win32").getAbsolutePath()
+			cppCompiler.args "-I"+new File("esriapi/include").getAbsolutePath()
+		      // cCompiler.args "/Zi"
+			// cCompiler.define "DLL_EXPORT"
+			linker.args "/LIBPATH:"+new File("esriapi/lib${targetPlatform.name == 'x64'?'64':''}").getAbsolutePath()
+			linker.args "FileGDBAPI.lib"
+		    }
+	    }    
+	    binaries.withType(StaticLibraryBinarySpec) {
+                buildable = false
+            }        
+        }
+    }
+}
