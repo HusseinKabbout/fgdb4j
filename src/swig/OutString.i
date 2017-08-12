@@ -20,7 +20,8 @@
     /* Take a copy of the C string as the typemap is for a non const C string */
     //jmethodID capacityID = jenv->GetMethodID(jenv, sbufClass, "capacity", "()I");
     //jint capacity = jenv->CallIntMethod(jenv, $input, capacityID);
-    std::string $1_str(pCharStr);
+    std::string $1_str;
+    $1_str.assign(pCharStr);
     $1=&$1_str;
 
     /* Release the UTF string we obtained with GetStringUTFChars */

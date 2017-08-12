@@ -139,12 +139,12 @@ public class Row {
     return fgbd4jJNI.Row_GetDate__SWIG_1(swigCPtr, this, fieldNumber, SWIGTYPE_p_tm.getCPtr(value));
   }
 
-  public int SetDate(String field, long value) {
-    return fgbd4jJNI.Row_SetDate__SWIG_0(swigCPtr, this, field, value);
+  public int SetDate(String field, SWIGTYPE_p_tm value) {
+    return fgbd4jJNI.Row_SetDate__SWIG_0(swigCPtr, this, field, SWIGTYPE_p_tm.getCPtr(value));
   }
 
-  public int SetDate(int fieldNumber, long value) {
-    return fgbd4jJNI.Row_SetDate__SWIG_1(swigCPtr, this, fieldNumber, value);
+  public int SetDate(int fieldNumber, SWIGTYPE_p_tm value) {
+    return fgbd4jJNI.Row_SetDate__SWIG_1(swigCPtr, this, fieldNumber, SWIGTYPE_p_tm.getCPtr(value));
   }
 
   public int GetString(String field, StringBuffer value) {
@@ -229,6 +229,22 @@ public class Row {
 
   public Row() {
     this(fgbd4jJNI.new_Row(), true);
+  }
+
+  public int setDateTime(String field, ce_time in) {
+    return fgbd4jJNI.Row_setDateTime__SWIG_0(swigCPtr, this, field, ce_time.getCPtr(in), in);
+  }
+
+  public int setDateTime(int fieldNumber, ce_time in) {
+    return fgbd4jJNI.Row_setDateTime__SWIG_1(swigCPtr, this, fieldNumber, ce_time.getCPtr(in), in);
+  }
+
+  public int getDateTime(String field, ce_time out) {
+    return fgbd4jJNI.Row_getDateTime__SWIG_0(swigCPtr, this, field, ce_time.getCPtr(out), out);
+  }
+
+  public int getDateTime(int fieldNumber, ce_time out) {
+    return fgbd4jJNI.Row_getDateTime__SWIG_1(swigCPtr, this, fieldNumber, ce_time.getCPtr(out), out);
   }
 
 }

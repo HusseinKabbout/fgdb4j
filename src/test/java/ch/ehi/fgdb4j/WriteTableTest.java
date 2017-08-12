@@ -3,6 +3,7 @@ package ch.ehi.fgdb4j;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.nio.ByteOrder;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -105,7 +106,7 @@ public class WriteTableTest {
 		  //spatialReference.SetXYTolerance(.001);
 
 		  GeometryDef geometryDef=new GeometryDef();
-		  geometryDef.SetGeometryType (GeometryType.geometryPolyline);
+		  geometryDef.SetGeometryType (GeometryType.geometryPoint);
 		  geometryDef.SetSpatialReference(spatialReference);
 		  geometryDef.SetHasZ(false); //Set to true if the feature class is to be Z enabled. Defaults to FALSE.
 		  geometryDef.SetHasM(false); //Set to true if the feature class is to be M enabled. Defaults to FALSE.
@@ -143,11 +144,12 @@ public class WriteTableTest {
 		  cabazonRow.SetInteger("OBJECTID", 1);
 		  
 			PointShapeBuffer point2Geometry=new PointShapeBuffer();
-			  Point           point2=new Point();
 			  point2Geometry.Setup(ShapeType.shapePoint);
-			  //point2Geometry.GetPoint(point2);
-			  //point2.setX(value);
-			  //point2.setY(value);
+			  java.nio.ByteBuffer shapeBuffer=java.nio.ByteBuffer.allocate(20).order(ByteOrder.LITTLE_ENDIAN); 
+			  shapeBuffer.putInt(1);
+			  shapeBuffer.putDouble(2660013.54);
+			  shapeBuffer.putDouble(1185171.98);
+			  point2Geometry.setBuffer(shapeBuffer.array());
 
 			  ret = cabazonRow.SetGeometry(point2Geometry);
 				if(ret!=0){

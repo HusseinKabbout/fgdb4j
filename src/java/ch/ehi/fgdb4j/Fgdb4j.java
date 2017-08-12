@@ -96,7 +96,6 @@ public class Fgdb4j {
 	        final String[] file=new String[]{"FileGDBAPI.dll","fgdb4j.dll"}; 
 	        final String[] hardlibPropertyName=new String[]{HARDLIB_PROPERTY_ESRIAPI,HARDLIB_PROPERTY_WRAPPER}; 
 	        for(int filei=0;filei<file.length;filei++){
-		        // Try loading library from org.sqlite.lib.path library path */
 		        String hardlibPath = System.getProperty(hardlibPropertyName[filei]);
 
 		        if(hardlibPath != null) {

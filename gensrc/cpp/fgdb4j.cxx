@@ -232,6 +232,7 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
 
 #include <ctime>
 #include "FileGDBAPI.h"
+#include "ce_time.h"
 
 
 #include <typeinfo>
@@ -272,6 +273,70 @@ SWIGINTERN void std_vector_Sl_FileGDBAPI_IndexDef_Sg__set(std::vector< FileGDBAP
                 else
                     throw std::out_of_range("vector index out of range");
             }
+SWIGINTERN int FileGDBAPI_Row_setDateTime__SWIG_0(FileGDBAPI::Row *self,std::wstring const &field,ce_time const &in){
+		struct tm tmp;
+		tmp.tm_sec=in.tm_sec;
+		tmp.tm_min=in.tm_min;	
+		tmp.tm_hour=in.tm_hour;	
+		tmp.tm_mday=in.tm_mday;	
+		tmp.tm_mon=in.tm_mon;	
+		tmp.tm_year=in.tm_year;		
+		tmp.tm_wday=in.tm_wday;	
+		tmp.tm_yday=in.tm_yday;	
+		tmp.tm_isdst=in.tm_isdst;	
+		return self->SetDate(field,tmp);
+	}
+SWIGINTERN int FileGDBAPI_Row_setDateTime__SWIG_1(FileGDBAPI::Row *self,int fieldNumber,ce_time const &in){
+		struct tm tmp;
+		tmp.tm_sec=in.tm_sec;
+		tmp.tm_min=in.tm_min;	
+		tmp.tm_hour=in.tm_hour;	
+		tmp.tm_mday=in.tm_mday;	
+		tmp.tm_mon=in.tm_mon;	
+		tmp.tm_year=in.tm_year;		
+		tmp.tm_wday=in.tm_wday;	
+		tmp.tm_yday=in.tm_yday;	
+		tmp.tm_isdst=in.tm_isdst;	
+		return self->SetDate(fieldNumber,tmp);
+	}
+SWIGINTERN int FileGDBAPI_Row_getDateTime__SWIG_0(FileGDBAPI::Row *self,std::wstring const &field,ce_time &out){
+		struct tm tmp;
+		int ret=self->GetDate(field,tmp);
+		out.tm_sec=tmp.tm_sec;
+		out.tm_min=tmp.tm_min;	
+		out.tm_hour=tmp.tm_hour;	
+		out.tm_mday=tmp.tm_mday;	
+		out.tm_mon=tmp.tm_mon;	
+		out.tm_year=tmp.tm_year;		
+		out.tm_wday=tmp.tm_wday;	
+		out.tm_yday=tmp.tm_yday;	
+		out.tm_isdst=tmp.tm_isdst;	
+		return ret;
+	}
+SWIGINTERN int FileGDBAPI_Row_getDateTime__SWIG_1(FileGDBAPI::Row *self,int fieldNumber,ce_time &out){
+		struct tm tmp;
+		int ret=self->GetDate(fieldNumber,tmp);
+		out.tm_sec=tmp.tm_sec;
+		out.tm_min=tmp.tm_min;	
+		out.tm_hour=tmp.tm_hour;	
+		out.tm_mday=tmp.tm_mday;	
+		out.tm_mon=tmp.tm_mon;	
+		out.tm_year=tmp.tm_year;		
+		out.tm_wday=tmp.tm_wday;	
+		out.tm_yday=tmp.tm_yday;	
+		out.tm_isdst=tmp.tm_isdst;	
+		return ret;
+	}
+SWIGINTERN void FileGDBAPI_ShapeBuffer_setBuffer(FileGDBAPI::ShapeBuffer *self,byte *ShapeBufferIN){
+	}
+SWIGINTERN byte *FileGDBAPI_ShapeBuffer_getBuffer(FileGDBAPI::ShapeBuffer *self){
+		return self->shapeBuffer;
+	}
+SWIGINTERN void FileGDBAPI_ByteArray_setBuffer(FileGDBAPI::ByteArray *self,byte *ByteArrayIN){
+	}
+SWIGINTERN byte *FileGDBAPI_ByteArray_getBuffer(FileGDBAPI::ByteArray *self){
+		return self->byteArray;
+	}
 
 #ifdef __cplusplus
 extern "C" {
@@ -1015,7 +1080,8 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Geodatabase_1GetDataset
       /* Take a copy of the C string as the typemap is for a non const C string */
       //jmethodID capacityID = jenv->GetMethodID(jenv, sbufClass, "capacity", "()I");
       //jint capacity = jenv->CallIntMethod(jenv, jarg4, capacityID);
-      std::string arg4_str(pCharStr);
+      std::string arg4_str;
+      arg4_str.assign(pCharStr);
       arg4=&arg4_str;
       
       /* Release the UTF string we obtained with GetStringUTFChars */
@@ -1266,7 +1332,8 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Geodatabase_1GetDataset
       /* Take a copy of the C string as the typemap is for a non const C string */
       //jmethodID capacityID = jenv->GetMethodID(jenv, sbufClass, "capacity", "()I");
       //jint capacity = jenv->CallIntMethod(jenv, jarg4, capacityID);
-      std::string arg4_str(pCharStr);
+      std::string arg4_str;
+      arg4_str.assign(pCharStr);
       arg4=&arg4_str;
       
       /* Release the UTF string we obtained with GetStringUTFChars */
@@ -1983,7 +2050,8 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Geodatabase_1GetDomainD
       /* Take a copy of the C string as the typemap is for a non const C string */
       //jmethodID capacityID = jenv->GetMethodID(jenv, sbufClass, "capacity", "()I");
       //jint capacity = jenv->CallIntMethod(jenv, jarg3, capacityID);
-      std::string arg3_str(pCharStr);
+      std::string arg3_str;
+      arg3_str.assign(pCharStr);
       arg3=&arg3_str;
       
       /* Release the UTF string we obtained with GetStringUTFChars */
@@ -2187,7 +2255,8 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Table_1GetDefinition(JN
       /* Take a copy of the C string as the typemap is for a non const C string */
       //jmethodID capacityID = jenv->GetMethodID(jenv, sbufClass, "capacity", "()I");
       //jint capacity = jenv->CallIntMethod(jenv, jarg2, capacityID);
-      std::string arg2_str(pCharStr);
+      std::string arg2_str;
+      arg2_str.assign(pCharStr);
       arg2=&arg2_str;
       
       /* Release the UTF string we obtained with GetStringUTFChars */
@@ -2242,7 +2311,8 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Table_1GetDocumentation
       /* Take a copy of the C string as the typemap is for a non const C string */
       //jmethodID capacityID = jenv->GetMethodID(jenv, sbufClass, "capacity", "()I");
       //jint capacity = jenv->CallIntMethod(jenv, jarg2, capacityID);
-      std::string arg2_str(pCharStr);
+      std::string arg2_str;
+      arg2_str.assign(pCharStr);
       arg2=&arg2_str;
       
       /* Release the UTF string we obtained with GetStringUTFChars */
@@ -4198,27 +4268,17 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Row_1SetDate_1_1SWIG_10
   arg2 = &arg2_str;
   jenv->ReleaseStringChars(jarg2, arg2_pstr);
   
-  {
-    const time_t time = (time_t)jarg3;
-    struct tm* tm_time_p=localtime(&time);
-    if (tm_time_p ==NULL) {
-      SWIG_JavaThrowException(jenv,SWIG_JavaIllegalArgumentException, "Invalid time_t");
-    }
-    arg3 = (struct tm*)alloca(sizeof(struct tm));
-    memcpy(arg3,tm_time_p,sizeof(struct tm));
-  }
+  arg3 = *(tm **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "tm const & reference is null");
+    return 0;
+  } 
   result = (fgdbError)(arg1)->SetDate((std::wstring const &)*arg2,(tm const &)*arg3);
   jresult = (jint)result; 
   {
     
   }
-  {
-    
-  }
   
-  {
-    
-  }
   return jresult;
 }
 
@@ -4235,23 +4295,13 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Row_1SetDate_1_1SWIG_11
   (void)jarg1_;
   arg1 = *(FileGDBAPI::Row **)&jarg1; 
   arg2 = (int)jarg2; 
-  {
-    const time_t time = (time_t)jarg3;
-    struct tm* tm_time_p=localtime(&time);
-    if (tm_time_p ==NULL) {
-      SWIG_JavaThrowException(jenv,SWIG_JavaIllegalArgumentException, "Invalid time_t");
-    }
-    arg3 = (struct tm*)alloca(sizeof(struct tm));
-    memcpy(arg3,tm_time_p,sizeof(struct tm));
-  }
+  arg3 = *(tm **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "tm const & reference is null");
+    return 0;
+  } 
   result = (fgdbError)(arg1)->SetDate(arg2,(tm const &)*arg3);
   jresult = (jint)result; 
-  {
-    
-  }
-  {
-    
-  }
   return jresult;
 }
 
@@ -4667,7 +4717,8 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Row_1GetXML_1_1SWIG_10(
       /* Take a copy of the C string as the typemap is for a non const C string */
       //jmethodID capacityID = jenv->GetMethodID(jenv, sbufClass, "capacity", "()I");
       //jint capacity = jenv->CallIntMethod(jenv, jarg3, capacityID);
-      std::string arg3_str(pCharStr);
+      std::string arg3_str;
+      arg3_str.assign(pCharStr);
       arg3=&arg3_str;
       
       /* Release the UTF string we obtained with GetStringUTFChars */
@@ -4728,7 +4779,8 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Row_1GetXML_1_1SWIG_11(
       /* Take a copy of the C string as the typemap is for a non const C string */
       //jmethodID capacityID = jenv->GetMethodID(jenv, sbufClass, "capacity", "()I");
       //jint capacity = jenv->CallIntMethod(jenv, jarg3, capacityID);
-      std::string arg3_str(pCharStr);
+      std::string arg3_str;
+      arg3_str.assign(pCharStr);
       arg3=&arg3_str;
       
       /* Release the UTF string we obtained with GetStringUTFChars */
@@ -5145,6 +5197,142 @@ SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_delete_1Row(JNIEnv *jen
   (void)jcls;
   arg1 = *(FileGDBAPI::Row **)&jarg1; 
   delete arg1;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Row_1setDateTime_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3, jobject jarg3_) {
+  jint jresult = 0 ;
+  FileGDBAPI::Row *arg1 = (FileGDBAPI::Row *) 0 ;
+  std::wstring *arg2 = 0 ;
+  ce_time *arg3 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(FileGDBAPI::Row **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::wstring");
+    return 0;
+  }
+  const jchar *arg2_pstr = jenv->GetStringChars(jarg2, 0);
+  if (!arg2_pstr) return 0;
+  jsize arg2_len = jenv->GetStringLength(jarg2);
+  std::wstring arg2_str;
+  if (arg2_len) {
+    arg2_str.reserve(arg2_len);
+    for (jsize i = 0; i < arg2_len; ++i) {
+      arg2_str.push_back((wchar_t)arg2_pstr[i]);
+    }
+  }
+  arg2 = &arg2_str;
+  jenv->ReleaseStringChars(jarg2, arg2_pstr);
+  
+  arg3 = *(ce_time **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "ce_time const & reference is null");
+    return 0;
+  } 
+  result = (int)FileGDBAPI_Row_setDateTime__SWIG_0(arg1,(std::wstring const &)*arg2,(ce_time const &)*arg3);
+  jresult = (jint)result; 
+  {
+    
+  }
+  
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Row_1setDateTime_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jint jresult = 0 ;
+  FileGDBAPI::Row *arg1 = (FileGDBAPI::Row *) 0 ;
+  int arg2 ;
+  ce_time *arg3 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(FileGDBAPI::Row **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(ce_time **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "ce_time const & reference is null");
+    return 0;
+  } 
+  result = (int)FileGDBAPI_Row_setDateTime__SWIG_1(arg1,arg2,(ce_time const &)*arg3);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Row_1getDateTime_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3, jobject jarg3_) {
+  jint jresult = 0 ;
+  FileGDBAPI::Row *arg1 = (FileGDBAPI::Row *) 0 ;
+  std::wstring *arg2 = 0 ;
+  ce_time *arg3 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(FileGDBAPI::Row **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null std::wstring");
+    return 0;
+  }
+  const jchar *arg2_pstr = jenv->GetStringChars(jarg2, 0);
+  if (!arg2_pstr) return 0;
+  jsize arg2_len = jenv->GetStringLength(jarg2);
+  std::wstring arg2_str;
+  if (arg2_len) {
+    arg2_str.reserve(arg2_len);
+    for (jsize i = 0; i < arg2_len; ++i) {
+      arg2_str.push_back((wchar_t)arg2_pstr[i]);
+    }
+  }
+  arg2 = &arg2_str;
+  jenv->ReleaseStringChars(jarg2, arg2_pstr);
+  
+  arg3 = *(ce_time **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "ce_time & reference is null");
+    return 0;
+  } 
+  result = (int)FileGDBAPI_Row_getDateTime__SWIG_0(arg1,(std::wstring const &)*arg2,*arg3);
+  jresult = (jint)result; 
+  {
+    
+  }
+  
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_Row_1getDateTime_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  jint jresult = 0 ;
+  FileGDBAPI::Row *arg1 = (FileGDBAPI::Row *) 0 ;
+  int arg2 ;
+  ce_time *arg3 = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(FileGDBAPI::Row **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = *(ce_time **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "ce_time & reference is null");
+    return 0;
+  } 
+  result = (int)FileGDBAPI_Row_getDateTime__SWIG_1(arg1,arg2,*arg3);
+  jresult = (jint)result; 
+  return jresult;
 }
 
 
@@ -7106,23 +7294,6 @@ SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_delete_1FieldInfo(JNIEn
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1Allocate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jboolean jresult = 0 ;
-  FileGDBAPI::ShapeBuffer *arg1 = (FileGDBAPI::ShapeBuffer *) 0 ;
-  size_t arg2 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
-  arg2 = (size_t)jarg2; 
-  result = (bool)(arg1)->Allocate(arg2);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_new_1ShapeBuffer_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   size_t arg1 ;
@@ -7156,90 +7327,6 @@ SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_delete_1ShapeBuffer(JNI
   (void)jcls;
   arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
   delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1shapeBuffer_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FileGDBAPI::ShapeBuffer *arg1 = (FileGDBAPI::ShapeBuffer *) 0 ;
-  byte *arg2 = (byte *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
-  arg2 = *(byte **)&jarg2; 
-  if (arg1) (arg1)->shapeBuffer = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1shapeBuffer_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FileGDBAPI::ShapeBuffer *arg1 = (FileGDBAPI::ShapeBuffer *) 0 ;
-  byte *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
-  result = (byte *) ((arg1)->shapeBuffer);
-  *(byte **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1allocatedLength_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FileGDBAPI::ShapeBuffer *arg1 = (FileGDBAPI::ShapeBuffer *) 0 ;
-  size_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
-  arg2 = (size_t)jarg2; 
-  if (arg1) (arg1)->allocatedLength = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1allocatedLength_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FileGDBAPI::ShapeBuffer *arg1 = (FileGDBAPI::ShapeBuffer *) 0 ;
-  size_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
-  result =  ((arg1)->allocatedLength);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1inUseLength_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FileGDBAPI::ShapeBuffer *arg1 = (FileGDBAPI::ShapeBuffer *) 0 ;
-  size_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
-  arg2 = (size_t)jarg2; 
-  if (arg1) (arg1)->inUseLength = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1inUseLength_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FileGDBAPI::ShapeBuffer *arg1 = (FileGDBAPI::ShapeBuffer *) 0 ;
-  size_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
-  result =  ((arg1)->inUseLength);
-  jresult = (jlong)result; 
-  return jresult;
 }
 
 
@@ -7445,6 +7532,48 @@ SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1GetGeometr
   arg1 = (FileGDBAPI::ShapeType)jarg1; 
   result = (FileGDBAPI::GeometryType)FileGDBAPI::ShapeBuffer::GetGeometryType(arg1);
   jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1setBuffer(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
+  FileGDBAPI::ShapeBuffer *arg1 = (FileGDBAPI::ShapeBuffer *) 0 ;
+  byte *arg2 = (byte *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
+  {
+    if (jarg2) {
+      jsize size = (jsize) jenv->GetArrayLength(jarg2);
+      if((arg1)->allocatedLength<size){
+        (arg1)->Allocate(size);
+      }
+      jenv->GetByteArrayRegion(jarg2, 0, size, (jbyte *)(arg1)->shapeBuffer);
+      (arg1)->inUseLength=size;
+    }else{
+      (arg1)->inUseLength=0;
+    }
+  }
+  FileGDBAPI_ShapeBuffer_setBuffer(arg1,arg2);
+}
+
+
+SWIGEXPORT jbyteArray JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ShapeBuffer_1getBuffer(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
+  FileGDBAPI::ShapeBuffer *arg1 = (FileGDBAPI::ShapeBuffer *) 0 ;
+  byte *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(FileGDBAPI::ShapeBuffer **)&jarg1; 
+  result = (byte *)FileGDBAPI_ShapeBuffer_getBuffer(arg1);
+  {
+    jresult = jenv->NewByteArray((jsize)arg1->inUseLength);
+    jenv->SetByteArrayRegion(jresult, 0, (jsize)arg1->inUseLength, (jbyte *)arg1->shapeBuffer);
+  }
   return jresult;
 }
 
@@ -8766,23 +8895,6 @@ SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_delete_1MultiPatchShape
 }
 
 
-SWIGEXPORT jboolean JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1Allocate(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  jboolean jresult = 0 ;
-  FileGDBAPI::ByteArray *arg1 = (FileGDBAPI::ByteArray *) 0 ;
-  size_t arg2 ;
-  bool result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ByteArray **)&jarg1; 
-  arg2 = (size_t)jarg2; 
-  result = (bool)(arg1)->Allocate(arg2);
-  jresult = (jboolean)result; 
-  return jresult;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_new_1ByteArray_1_1SWIG_10(JNIEnv *jenv, jclass jcls, jlong jarg1) {
   jlong jresult = 0 ;
   size_t arg1 ;
@@ -8819,7 +8931,7 @@ SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_delete_1ByteArray(JNIEn
 }
 
 
-SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1byteArray_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1setBuffer(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jbyteArray jarg2) {
   FileGDBAPI::ByteArray *arg1 = (FileGDBAPI::ByteArray *) 0 ;
   byte *arg2 = (byte *) 0 ;
   
@@ -8827,13 +8939,24 @@ SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1byteArray_1s
   (void)jcls;
   (void)jarg1_;
   arg1 = *(FileGDBAPI::ByteArray **)&jarg1; 
-  arg2 = *(byte **)&jarg2; 
-  if (arg1) (arg1)->byteArray = arg2;
+  {
+    if (jarg2) {
+      jsize size = (jsize) jenv->GetArrayLength(jarg2);
+      if((arg1)->allocatedLength<size){
+        (arg1)->Allocate(size);
+      }
+      jenv->GetByteArrayRegion(jarg2, 0, size, (jbyte *)(arg1)->byteArray);
+      (arg1)->inUseLength=size;
+    }else{
+      (arg1)->inUseLength=0;
+    }
+  }
+  FileGDBAPI_ByteArray_setBuffer(arg1,arg2);
 }
 
 
-SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1byteArray_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
+SWIGEXPORT jbyteArray JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1getBuffer(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jbyteArray jresult = 0 ;
   FileGDBAPI::ByteArray *arg1 = (FileGDBAPI::ByteArray *) 0 ;
   byte *result = 0 ;
   
@@ -8841,64 +8964,11 @@ SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1byteArray_1
   (void)jcls;
   (void)jarg1_;
   arg1 = *(FileGDBAPI::ByteArray **)&jarg1; 
-  result = (byte *) ((arg1)->byteArray);
-  *(byte **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1allocatedLength_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FileGDBAPI::ByteArray *arg1 = (FileGDBAPI::ByteArray *) 0 ;
-  size_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ByteArray **)&jarg1; 
-  arg2 = (size_t)jarg2; 
-  if (arg1) (arg1)->allocatedLength = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1allocatedLength_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FileGDBAPI::ByteArray *arg1 = (FileGDBAPI::ByteArray *) 0 ;
-  size_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ByteArray **)&jarg1; 
-  result =  ((arg1)->allocatedLength);
-  jresult = (jlong)result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1inUseLength_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
-  FileGDBAPI::ByteArray *arg1 = (FileGDBAPI::ByteArray *) 0 ;
-  size_t arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ByteArray **)&jarg1; 
-  arg2 = (size_t)jarg2; 
-  if (arg1) (arg1)->inUseLength = arg2;
-}
-
-
-SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ByteArray_1inUseLength_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jlong jresult = 0 ;
-  FileGDBAPI::ByteArray *arg1 = (FileGDBAPI::ByteArray *) 0 ;
-  size_t result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(FileGDBAPI::ByteArray **)&jarg1; 
-  result =  ((arg1)->inUseLength);
-  jresult = (jlong)result; 
+  result = (byte *)FileGDBAPI_ByteArray_getBuffer(arg1);
+  {
+    jresult = jenv->NewByteArray((jsize)arg1->inUseLength);
+    jenv->SetByteArrayRegion(jresult, 0, (jsize)arg1->inUseLength, (jbyte *)arg1->byteArray);
+  }
   return jresult;
 }
 
@@ -10528,6 +10598,280 @@ SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_delete_1Raster(JNIEnv *
   (void)jenv;
   (void)jcls;
   arg1 = *(FileGDBAPI::Raster **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1sec_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->tm_sec = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1sec_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ce_time *arg1 = (ce_time *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  result = (int) ((arg1)->tm_sec);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1min_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->tm_min = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1min_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ce_time *arg1 = (ce_time *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  result = (int) ((arg1)->tm_min);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1hour_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->tm_hour = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1hour_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ce_time *arg1 = (ce_time *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  result = (int) ((arg1)->tm_hour);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1mday_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->tm_mday = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1mday_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ce_time *arg1 = (ce_time *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  result = (int) ((arg1)->tm_mday);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1mon_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->tm_mon = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1mon_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ce_time *arg1 = (ce_time *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  result = (int) ((arg1)->tm_mon);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1year_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->tm_year = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1year_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ce_time *arg1 = (ce_time *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  result = (int) ((arg1)->tm_year);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1wday_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->tm_wday = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1wday_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ce_time *arg1 = (ce_time *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  result = (int) ((arg1)->tm_wday);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1yday_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->tm_yday = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1yday_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ce_time *arg1 = (ce_time *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  result = (int) ((arg1)->tm_yday);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1isdst_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->tm_isdst = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_ce_1time_1tm_1isdst_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  ce_time *arg1 = (ce_time *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(ce_time **)&jarg1; 
+  result = (int) ((arg1)->tm_isdst);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_new_1ce_1time(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  ce_time *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (ce_time *)new ce_time();
+  *(ce_time **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_ch_ehi_fgdb4j_jni_fgbd4jJNI_delete_1ce_1time(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  ce_time *arg1 = (ce_time *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(ce_time **)&jarg1; 
   delete arg1;
 }
 

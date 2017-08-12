@@ -35,10 +35,6 @@ public class ByteArray {
     }
   }
 
-  public boolean Allocate(long length) {
-    return fgbd4jJNI.ByteArray_Allocate(swigCPtr, this, length);
-  }
-
   public ByteArray(long length) {
     this(fgbd4jJNI.new_ByteArray__SWIG_0(length), true);
   }
@@ -47,29 +43,12 @@ public class ByteArray {
     this(fgbd4jJNI.new_ByteArray__SWIG_1(), true);
   }
 
-  public void setByteArray(SWIGTYPE_p_unsigned_char value) {
-    fgbd4jJNI.ByteArray_byteArray_set(swigCPtr, this, SWIGTYPE_p_unsigned_char.getCPtr(value));
+  public void setBuffer(byte[] ByteArrayIN) {
+    fgbd4jJNI.ByteArray_setBuffer(swigCPtr, this, ByteArrayIN);
   }
 
-  public SWIGTYPE_p_unsigned_char getByteArray() {
-    long cPtr = fgbd4jJNI.ByteArray_byteArray_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
-  }
-
-  public void setAllocatedLength(long value) {
-    fgbd4jJNI.ByteArray_allocatedLength_set(swigCPtr, this, value);
-  }
-
-  public long getAllocatedLength() {
-    return fgbd4jJNI.ByteArray_allocatedLength_get(swigCPtr, this);
-  }
-
-  public void setInUseLength(long value) {
-    fgbd4jJNI.ByteArray_inUseLength_set(swigCPtr, this, value);
-  }
-
-  public long getInUseLength() {
-    return fgbd4jJNI.ByteArray_inUseLength_get(swigCPtr, this);
+  public byte[] getBuffer() {
+    return fgbd4jJNI.ByteArray_getBuffer(swigCPtr, this);
   }
 
 }

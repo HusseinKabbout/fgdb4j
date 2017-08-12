@@ -3,6 +3,7 @@ package ch.ehi.fgdb4j;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.nio.ByteOrder;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -65,7 +66,12 @@ public class ReadTableTest {
 				System.out.println("GetErrorDescription("+errorDescription.toString()+")");
 			}
 		    //attrQueryRow.GetInteger("POP1990", cityPop);
-		    //attrQueryRow.GetGeometry(geometry);
+			
+		    ShapeBuffer geometry=new ShapeBuffer();
+			attrQueryRow.GetGeometry(geometry);
+			byte[] buffer=geometry.getBuffer();
+			java.nio.ByteBuffer b=java.nio.ByteBuffer.wrap(buffer).order(ByteOrder.LITTLE_ENDIAN);
+			System.out.println("geometryType "+b.getInt());
 		    //geometry.GetPoint(point);
 		    System.out.println(cityName.toString());
 		  }

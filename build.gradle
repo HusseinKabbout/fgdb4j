@@ -28,6 +28,7 @@ task generateSrc(type:Exec) {
   args "-Iesriapi/include"
   args "-c++"
   //args "-debug-tmsearch"
+  //args "-E" // ony pre-process
   args "-java"
   args "-outdir", "gensrc/java/ch/ehi/fgdb4j/jni"
   args "-package", "ch.ehi.fgdb4j.jni"
@@ -91,6 +92,7 @@ model {
 			cppCompiler.args "-I"+new File("jdk/include").getAbsolutePath()
 			cppCompiler.args "-I"+new File("jdk/include/win32").getAbsolutePath()
 			cppCompiler.args "-I"+new File("esriapi/include").getAbsolutePath()
+			cppCompiler.args "-I"+new File("src/swig").getAbsolutePath()
 		      // cCompiler.args "/Zi"
 			// cCompiler.define "DLL_EXPORT"
 			linker.args "/LIBPATH:"+new File("esriapi/lib${targetPlatform.name == 'x64'?'64':''}").getAbsolutePath()

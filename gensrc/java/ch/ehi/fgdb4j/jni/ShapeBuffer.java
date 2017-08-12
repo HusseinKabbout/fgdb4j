@@ -35,41 +35,12 @@ public class ShapeBuffer {
     }
   }
 
-  public boolean Allocate(long length) {
-    return fgbd4jJNI.ShapeBuffer_Allocate(swigCPtr, this, length);
-  }
-
   public ShapeBuffer(long length) {
     this(fgbd4jJNI.new_ShapeBuffer__SWIG_0(length), true);
   }
 
   public ShapeBuffer() {
     this(fgbd4jJNI.new_ShapeBuffer__SWIG_1(), true);
-  }
-
-  public void setShapeBuffer(SWIGTYPE_p_unsigned_char value) {
-    fgbd4jJNI.ShapeBuffer_shapeBuffer_set(swigCPtr, this, SWIGTYPE_p_unsigned_char.getCPtr(value));
-  }
-
-  public SWIGTYPE_p_unsigned_char getShapeBuffer() {
-    long cPtr = fgbd4jJNI.ShapeBuffer_shapeBuffer_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_unsigned_char(cPtr, false);
-  }
-
-  public void setAllocatedLength(long value) {
-    fgbd4jJNI.ShapeBuffer_allocatedLength_set(swigCPtr, this, value);
-  }
-
-  public long getAllocatedLength() {
-    return fgbd4jJNI.ShapeBuffer_allocatedLength_get(swigCPtr, this);
-  }
-
-  public void setInUseLength(long value) {
-    fgbd4jJNI.ShapeBuffer_inUseLength_set(swigCPtr, this, value);
-  }
-
-  public long getInUseLength() {
-    return fgbd4jJNI.ShapeBuffer_inUseLength_get(swigCPtr, this);
   }
 
   public boolean IsEmpty() {
@@ -118,6 +89,14 @@ public class ShapeBuffer {
 
   public static GeometryType GetGeometryType(ShapeType shapeType) {
     return GeometryType.swigToEnum(fgbd4jJNI.ShapeBuffer_GetGeometryType__SWIG_1(shapeType.swigValue()));
+  }
+
+  public void setBuffer(byte[] ShapeBufferIN) {
+    fgbd4jJNI.ShapeBuffer_setBuffer(swigCPtr, this, ShapeBufferIN);
+  }
+
+  public byte[] getBuffer() {
+    return fgbd4jJNI.ShapeBuffer_getBuffer(swigCPtr, this);
   }
 
 }

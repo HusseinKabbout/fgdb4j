@@ -60,6 +60,46 @@ public class CreateTableTest {
 		}
 	}
 	@Test
+	public void createUnlimitedText() {
+		Geodatabase geodatabase=new Geodatabase();
+		File fgdbFile=new File("tmp\\testdb.gdb");
+		System.out.println(fgdbFile.getAbsolutePath());
+		Fgdb4j.deleteFileGdb(fgdbFile);
+		int ret=0;
+		ret=fgbd4j.CreateGeodatabase("tmp\\testdb.gdb", geodatabase);
+		if(ret!=0){
+			StringBuffer errorDescription=new StringBuffer();
+			fgbd4j.GetErrorDescription(ret, errorDescription);
+			System.out.println("GetErrorDescription("+errorDescription.toString()+")");
+		}
+		Table table=new Table();
+		FieldDefs fieldDefs=new FieldDefs();
+		FieldDef fieldDef1=new FieldDef();
+		  fieldDef1.SetName ("OBJECTID");
+		  fieldDef1.SetType (FieldType.fieldTypeString);
+		  fieldDef1.SetLength(2147483646);
+		  fieldDef1.SetIsNullable(false);
+		  fieldDefs.add(fieldDef1);
+		ret=geodatabase.CreateTable("streets", fieldDefs, "", table);
+		if(ret!=0){
+			StringBuffer errorDescription=new StringBuffer();
+			fgbd4j.GetErrorDescription(ret, errorDescription);
+			System.out.println("GetErrorDescription("+errorDescription.toString()+")");
+		}
+		ret=geodatabase.CloseTable(table);
+		if(ret!=0){
+			StringBuffer errorDescription=new StringBuffer();
+			fgbd4j.GetErrorDescription(ret, errorDescription);
+			System.out.println("GetErrorDescription("+errorDescription.toString()+")");
+		}
+		ret=fgbd4j.CloseGeodatabase(geodatabase);
+		if(ret!=0){
+			StringBuffer errorDescription=new StringBuffer();
+			fgbd4j.GetErrorDescription(ret, errorDescription);
+			System.out.println("GetErrorDescription("+errorDescription.toString()+")");
+		}
+	}
+	@Test
 	public void tableExists() {
 		Geodatabase geodatabase=new Geodatabase();
 		File fgdbFile=new File("tmp\\testdb.gdb");
