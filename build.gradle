@@ -1,8 +1,53 @@
+group 'ch.ehi'
+version '1.1.0'+System.getProperty('release','-SNAPSHOT')
+
 apply plugin: "cpp"
 apply plugin: "java"
+apply plugin: "maven"
 
 sourceCompatibility = "1.6"
 targetCompatibility = "1.6"
+compileJava.options.encoding = 'US-ASCII'
+configurations {
+    deployerJars
+}
+
+// to get the latest SNAPSHOT uncomment the following lines
+//configurations.all {
+    // check for updates every build
+//    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+//}
+dependencies {
+    deployerJars "org.apache.maven.wagon:wagon-ftp:3.0.0"
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url "http://jars.interlis.ch"
+    }
+    mavenCentral()
+}
+
+Properties properties = new Properties()
+File propFile=project.rootProject.file('user.properties')
+if(propFile.exists()){
+	properties.load(propFile.newDataInputStream())
+}
+def git = System.getProperty('git',properties.get('git','git'))
+def repos_pwd = System.getProperty('repos_pwd',properties.get('repos_pwd','repos_pwd'))
+def repos_usr = System.getProperty('repos_usr',properties.get('repos_usr','repos_usr'))
+    
+def generatedResources = "$buildDir/generated-resources/main"
+
+def getGitHash = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine git, 'rev-parse', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
 
 task nativelib(  ){
 	
@@ -54,6 +99,9 @@ jar {
 }
 sourceSets {
     main {
+		//let's register an output folder on the main SourceSet:
+		//it is now a part of the 'main' classpath and will be a part of the jar
+		output.dir(generatedResources, builtBy: 'generateMyResources')
         java {
             srcDirs = ['gensrc/java','src/java']
         }
@@ -61,6 +109,16 @@ sourceSets {
             srcDirs = ['src/java','gensrc/native']
         }
     }
+}
+task generateMyResources {
+	doLast {
+		def versionProps = new Properties()
+		versionProps.setProperty('version', "$project.version")
+		versionProps.setProperty('versionCommit', getGitHash())
+		def versionPropsFile = new File(generatedResources,"ch/ehi/fgdb4j/Version.properties")
+		versionPropsFile.getParentFile().mkdirs();
+		versionProps.store(versionPropsFile.newWriter(), null);
+	}
 }
 
 model {
@@ -103,5 +161,22 @@ model {
                 buildable = false
             }        
         }
+    }
+}
+// use plugin 'maven' instead of 'maven-publish', 
+// because 'maven-publish' doesn't support ftp repository access
+artifacts {
+    archives(jar.archivePath){
+    	builtBy jar
+    }
+}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+        	configuration = configurations.deployerJars
+			repository(url: 'ftp://ftp.interlis.ch'){
+            	authentication(userName: repos_usr, password: repos_pwd)
+            }
+    	}
     }
 }
