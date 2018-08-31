@@ -358,30 +358,15 @@ public class Fgdb4j {
 	    /**
 	     * @return The version of the library.
 	     */
-		public static String getVersion() {
-			  if(version==null){
-			java.util.ResourceBundle resVersion = java.util.ResourceBundle.getBundle("ch/ehi/fgdb4j/Version");
-				StringBuffer ret=new StringBuffer(20);
-				String majorVersion=resVersion.getString("versionMajor");
-			ret.append(majorVersion);
-				ret.append('.');
-			ret.append(resVersion.getString("versionMinor"));
-				ret.append('.');
-			ret.append(resVersion.getString("versionMicro"));
-			ret.append('-');
-			if(resVersion.containsKey("versionBranch")){
-	            String branch=resVersion.getString("versionBranch");
-	            if(branch!=null){
-	            	branch=branch.trim();
-	            	if(branch.length()>0){
-	 	               ret.append(branch);
-		               ret.append('-');
-	            	}
-	            }
-			}
-			ret.append(resVersion.getString("versionDate"));
-				version=ret.toString();
-			  }
-			  return version;
-		}
+        public static String getVersion() {
+            if (version == null) {
+                java.util.ResourceBundle resVersion = java.util.ResourceBundle.getBundle("ch/ehi/fgdb4j/Version");
+                StringBuffer ret = new StringBuffer(80);
+                ret.append(resVersion.getString("version"));
+                ret.append('-');
+                ret.append(resVersion.getString("versionCommit"));
+                version = ret.toString();
+            }
+            return version;
+        }
 }
